@@ -97,6 +97,7 @@ const FilterBar = styled.div`
   position: relative;
   background-color: #fff;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.08);
+  z-index: 2;
 
   ${props =>
     props.filtersFixed &&

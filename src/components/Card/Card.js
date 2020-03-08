@@ -1,18 +1,11 @@
 import React from "react";
 import styled, { css } from "styled-components";
 
-import {
-  color_secondary,
-  color_grey_dark
-} from "../../atoms/Variables";
+import { color_secondary, color_grey_dark } from "../../atoms/Variables";
 
 import { media } from "../../utilities/MediaQueriesBuilder";
 
 const Card = props => {
-  const onClickHandler = url => {
-    window.open(url, "_blank");
-  };
-
   return (
     <CardWrapper
       sideFilterVisibility={props.sideFilterVisibility}
@@ -41,12 +34,14 @@ const Card = props => {
             </span>
             {props.location}
           </p>
-          <button
+          <a
             className="card_container-button"
-            onClick={() => onClickHandler(props.source)}
+            href={props.source}
+            rel="noopener noreferrer"
+            target="_blank"
           >
             Find out more
-          </button>
+          </a>
         </div>
       </div>
     </CardWrapper>
@@ -84,7 +79,7 @@ const CardWrapper = styled.div`
   border: none;
   margin: 2rem auto;
   text-align: center;
-  z-index: -1;
+  z-index: 1;
 
   ${media.sizeII`
     width: 40%;
@@ -145,22 +140,20 @@ const CardWrapper = styled.div`
     }
 
     &_container-button {
+      display: block;
+      width: 40%;
       padding: 1rem 2rem;
       margin: 2rem auto;
       background-color: #1eb2b9;
+      text-decoration: none;
       color: #fff;
       font-size: 1.4rem;
-      border: none;
-      outline: none;
+      font-weight: 500;
       border-radius: 2px;
       cursor: pointer;
 
-      &:hover {
+      :hover {
         background-color: #019ca3;
-      }
-
-      &:active {
-        transform: scale(1.03);
       }
     }
   }
