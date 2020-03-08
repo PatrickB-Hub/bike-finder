@@ -46,10 +46,11 @@ const Filter = styled.div`
   display: block;
   /* set same size of the .cd-tab-filter */
   height: ${tab_filter_height};
-  width: 40%;
+  width: 50%;
   margin: 0 auto;
   text-align: center;
   box-shadow: inset 0 -2px 0 ${color_secondary};
+  z-index: 99;
 
   .filter_input {
     width: 95%;

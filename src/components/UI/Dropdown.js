@@ -217,7 +217,7 @@ const Wrapper = styled.div`
   right: 2%;
   display: block;
   height: ${tab_filter_height};
-  width: 130px;
+  width: 110px;
   line-height: ${tab_filter_height};
   padding-left: 14px;
   cursor: pointer;

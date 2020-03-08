@@ -45,7 +45,7 @@ const Card = props => {
             className="card_container-button"
             onClick={() => onClickHandler(props.source)}
           >
-            Learn more
+            Find out more
           </button>
         </div>
       </div>
@@ -78,7 +78,7 @@ const ImagePlaceholder = styled.div`
 `;
 
 const CardWrapper = styled.div`
-  width: 80%;
+  width: 90%;
   background-color: #ffffff;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   border: none;

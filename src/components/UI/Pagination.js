@@ -35,8 +35,9 @@ export default Pagination;
 
 const PaginationWrapper = styled.div`
   .pagination {
-    margin: 5rem 0;
+    margin: 5rem 1rem;
     justify-content: center;
+    flex-wrap: wrap;
   }
 
   .page-link {
