@@ -82,13 +82,12 @@ const CardWrapper = styled.div`
   background-color: #ffffff;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   border: none;
-  margin: 1rem auto;
+  margin: 2rem auto;
   text-align: center;
   z-index: -1;
 
   ${media.sizeII`
     width: 40%;
-    margin: 2rem;
 
     ${props =>
       props.sideFilterVisibility &&
@@ -99,7 +98,6 @@ const CardWrapper = styled.div`
 
   ${media.sizeI`
     width: 30%;
-    margin: 1rem auto;
 
     ${props =>
       props.sideFilterVisibility &&
