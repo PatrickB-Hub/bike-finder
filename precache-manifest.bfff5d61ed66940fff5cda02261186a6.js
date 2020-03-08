@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "f8bba57e8423067a83e5b2503ab5e5ed",
+    "revision": "a28ff4367e8893a0c37e3f9b8a78e5e6",
     "url": "/bike-finder/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/bike-finder/static/css/2.72d9205d.chunk.css"
   },
   {
-    "revision": "b2972f61459a53e775b6",
+    "revision": "afab7bd63649d32b30ff",
     "url": "/bike-finder/static/css/main.f804aa7f.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/bike-finder/static/js/2.0a28e6bc.chunk.js.LICENSE"
   },
   {
-    "revision": "b2972f61459a53e775b6",
-    "url": "/bike-finder/static/js/main.9c3290c6.chunk.js"
+    "revision": "afab7bd63649d32b30ff",
+    "url": "/bike-finder/static/js/main.2259bb5c.chunk.js"
   },
   {
     "revision": "2ab987d28692e35222a0",
