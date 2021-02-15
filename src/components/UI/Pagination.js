@@ -16,13 +16,16 @@ const Pagination = ({ casesPerPage, totalCases, paginate }) => {
         <ul className="pagination">
           {pageNumbers.map(number => (
             <li key={number} className="page-item">
-              <a
-                onClick={() => paginate(number)}
-                href="!#"
+              <button
+                onClick={() => {
+                  paginate(number);
+                  window.scroll({ top: 0, behavior: "smooth" });
+                }}
+                href="/"
                 className="page-link"
               >
                 {number}
-              </a>
+              </button>
             </li>
           ))}
         </ul>

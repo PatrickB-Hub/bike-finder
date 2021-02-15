@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled, { createGlobalStyle } from "styled-components";
 
-import { color_primary, font_primary } from "../atoms/Variables";
+import { color_primary } from "../atoms/Variables";
 
 import Header from "../components/Layout/Header";
 import TopBar from "../components/Layout/TopBar";
@@ -141,10 +141,8 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    font: {
-      size: 1.6rem;
-      family: ${font_primary}; 
-    }
+    font-size: 1.6rem;
+    font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
 
     color: ${color_primary};
     background-color: #e7e7e7;

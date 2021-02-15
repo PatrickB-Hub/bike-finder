@@ -4,7 +4,8 @@ import styled, { css } from "styled-components";
 import {
   tab_filter_height,
   color_secondary,
-  color_grey_dark
+  color_grey_dark,
+  header_height
 } from "../../atoms/Variables";
 
 import DateRangeFilter from "../UI/FilterDateRangePicker";
@@ -161,7 +162,7 @@ const FilterIcon = styled.div`
 
 const FormWrapper = styled.div`
   position: absolute;
-  top: 150px;
+  top: ${header_height};
   left: 0;
   width: 70%;
   height: 100%;

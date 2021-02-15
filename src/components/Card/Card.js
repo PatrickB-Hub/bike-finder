@@ -140,8 +140,7 @@ const CardWrapper = styled.div`
     }
 
     &_container-button {
-      display: block;
-      width: 40%;
+      display: inline-block;
       padding: 1rem 2rem;
       margin: 2rem auto;
       background-color: #1eb2b9;
