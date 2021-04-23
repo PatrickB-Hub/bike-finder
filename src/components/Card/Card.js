@@ -63,6 +63,8 @@ const ImagePlaceholder = styled.div`
   font-weight: 700;
   color: #fff;
   background-color: ${color_grey_dark};
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
 `;
 
 const Image = styled.img`
