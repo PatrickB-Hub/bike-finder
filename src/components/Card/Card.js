@@ -6,14 +6,18 @@ import { color_secondary, color_grey_dark } from "../../atoms/Variables";
 import { media } from "../../utilities/MediaQueriesBuilder";
 
 const Card = props => {
+
   return (
     <CardWrapper
       sideFilterVisibility={props.sideFilterVisibility}
       className="card"
     >
-      <ImagePlaceholder image={props.image} alt="Bike Image">
-        No Image
-      </ImagePlaceholder>
+      {props.image
+        ? <Image src={props.image}></Image>
+        : <ImagePlaceholder alt="Bike Image">
+          No Image
+          </ImagePlaceholder>
+      }
       <div className="card_container">
         <h2 className="card_container-heading">{props.title}</h2>
         <p className="card_container-description">
@@ -44,7 +48,7 @@ const Card = props => {
           </a>
         </div>
       </div>
-    </CardWrapper>
+    </CardWrapper >
   );
 };
 
@@ -59,17 +63,14 @@ const ImagePlaceholder = styled.div`
   font-weight: 700;
   color: #fff;
   background-color: ${color_grey_dark};
-  border-bottom: 4px solid ${color_secondary};
+`;
 
-  ${props =>
-    props.image &&
-    css`
-      background: url(${props => props.image}) no-repeat center center;
-      background-clip: border-box;
-      background-size: 100% 100%;
-      color: transparent;
-      text-indent: -100%;
-    `}
+const Image = styled.img`
+  width: 100%;
+  height: 250px;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  object-fit: cover;
 `;
 
 const CardWrapper = styled.div`
@@ -77,12 +78,14 @@ const CardWrapper = styled.div`
   background-color: #ffffff;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   border: none;
+  border-radius: 1rem;
   margin: 2rem auto;
   text-align: center;
   z-index: 1;
 
   ${media.sizeII`
     width: 40%;
+    margin: 2rem;
 
     ${props =>
       props.sideFilterVisibility &&
@@ -93,11 +96,12 @@ const CardWrapper = styled.div`
 
   ${media.sizeI`
     width: 30%;
+    margin: 2.5rem auto;
 
     ${props =>
       props.sideFilterVisibility &&
       css`
-        width: 45%;
+        width: min(400px, 45%);
       `}
   `};
 
@@ -109,6 +113,7 @@ const CardWrapper = styled.div`
       align-items: center;
       height: 100%;
       padding: 10px 20px;
+      border-top: 4px solid ${color_secondary};
     }
 
     &_container-heading {
