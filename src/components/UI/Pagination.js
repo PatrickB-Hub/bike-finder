@@ -1,33 +1,37 @@
 import React from "react";
 import styled from "styled-components";
 
-import { color_primary } from "../../atoms/Variables";
+import { color_grey_dark, color_primary } from "../../atoms/Variables";
 
-const Pagination = ({ casesPerPage, totalCases, paginate }) => {
-  const pageNumbers = [];
-
-  for (let i = 1; i <= Math.ceil(totalCases / casesPerPage); i++) {
-    pageNumbers.push(i);
-  }
-
+const Pagination = ({ previous, next, page, setPage }) => {
   return (
     <PaginationWrapper>
       <nav className="page-nav">
         <ul className="pagination">
-          {pageNumbers.map(number => (
-            <li key={number} className="page-item">
-              <button
-                onClick={() => {
-                  paginate(number);
-                  window.scroll({ top: 0, behavior: "smooth" });
-                }}
-                href="/"
-                className="page-link"
-              >
-                {number}
-              </button>
-            </li>
-          ))}
+          <li key="prev" className="page-item">
+            <button
+              onClick={() => {
+                setPage((page -= 1));
+                window.scroll({ top: 0, behavior: "smooth" });
+              }}
+              href="/"
+              className={"page-link" + (!previous ? " active" : "")}
+            >
+              Previous
+            </button>
+          </li>
+          <li key="next" className="page-item">
+            <button
+              onClick={() => {
+                setPage((page += 1));
+                window.scroll({ top: 0, behavior: "smooth" });
+              }}
+              href="/"
+              className={"page-link" + (!next ? " active" : "")}
+            >
+              Next
+            </button>
+          </li>
         </ul>
       </nav>
     </PaginationWrapper>
@@ -50,5 +54,10 @@ const PaginationWrapper = styled.div`
     font-weight: 500;
     color: ${color_primary};
     cursor: pointer;
+
+    &.active {
+      color: ${color_grey_dark};
+      pointer-events: none;
+    }
   }
 `;
