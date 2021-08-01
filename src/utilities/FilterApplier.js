@@ -27,7 +27,9 @@ const isInDateRange = (startDate, endDate, caseDate) => {
 
 const matchesDescriptionFilter = (filter, description) => {
   if (filter === "") return true;
-  return description && description.includes(filter);
+  return (
+    description && description.toLowerCase().includes(filter.toLowerCase())
+  );
 };
 
 const matchesImageFilter = (filter, image) => {

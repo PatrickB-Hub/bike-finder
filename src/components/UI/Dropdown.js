@@ -5,7 +5,7 @@ import {
   color_secondary,
   color_grey_dark,
   tab_filter_height,
-  color_grey_light
+  color_grey_light,
 } from "../../atoms/Variables";
 
 import FilterContext from "../../context/FilterContext";
@@ -18,18 +18,17 @@ const Dropdown = ({ filterItems }) => {
   const [option, setOption] = useState(queryOptions.dropdownFilter);
   const [inputValue, setInputValue] = useState("");
 
-  const onClickHandler = item => {
+  const onClickHandler = (item) => {
     setOption(item);
     changeSelectedFilter({ filterPart: "dropdownFilter", value: item });
     setDropdownOpen(!dropdownOpen);
   };
 
-  const onChangeHandler = e => {
-    console.log(e.target.value);
+  const onChangeHandler = (e) => {
     setInputValue(e.target.value);
   };
 
-  const onSubmitHandler = e => {
+  const onSubmitHandler = (e) => {
     e.preventDefault();
     if (inputValue !== "") setOption(inputValue);
     changeSelectedFilter({ filterPart: "dropdownFilter", value: inputValue });
@@ -194,7 +193,7 @@ const Filter = styled.div`
     `}
   }
 
-  ${props =>
+  ${(props) =>
     props.opened &&
     css`
       .dropdown {

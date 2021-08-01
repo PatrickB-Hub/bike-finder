@@ -20,7 +20,6 @@ export const useFetch = (url) => {
         setRequestState({ data: json, loading: false, error: "" });
       })
       .catch((err) => {
-        console.log(err);
         setRequestState({ data: null, loading: false, error: err });
       });
   }, [url, setRequestState]);
