@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import styled, { css } from "styled-components";
 
 import { color_primary } from "../../atoms/Variables";
@@ -12,19 +12,26 @@ import FilterContext from "../../context/FilterContext";
 import { media } from "../../utilities/MediaQueriesBuilder";
 import { filterApplier } from "../../utilities/FilterApplier";
 
-const Gallery = ({ loading, data, failed, casesPerPage }) => {
-  const { sideFilterVisibility, filtersFixed, sideFilterOptions } = useContext(
-    FilterContext
-  );
-  const [currentPage, setCurrentPage] = useState(1);
+const Gallery = ({ loading, bikes, error, casesPerPage }) => {
+  const {
+    queryOptions,
+    sideFilterVisibility,
+    filtersFixed,
+    sideFilterOptions,
+    changeSelectedFilter,
+  } = useContext(FilterContext);
+
+  const setPage = (page) => {
+    changeSelectedFilter({
+      filterPart: "page",
+      value: page,
+    });
+  };
 
   // Get current cases
-  const filteredCases =
-    !loading && filterApplier(sideFilterOptions, data.incidents);
-  const indexOfLastCase = currentPage * casesPerPage;
-  const indexOfFirstCase = indexOfLastCase - casesPerPage;
-  const currentCases =
-    !loading && filteredCases.slice(indexOfFirstCase, indexOfLastCase);
+  let filteredCases = [];
+  if (!loading) filteredCases = filterApplier(sideFilterOptions, bikes);
+  console.log("FILTERED CASES: ", filteredCases);
 
   return (
     <>
@@ -34,36 +41,38 @@ const Gallery = ({ loading, data, failed, casesPerPage }) => {
       >
         {loading && <Spinner />}
         {!loading &&
-          !failed &&
-          currentCases.map(incident => {
-            const date = new Date(incident.occurred_at * 1000);
+          !error &&
+          filteredCases.map((incident) => {
+            const date = new Date(incident.date_stolen * 1000);
 
             return (
               <Card
                 key={incident.id}
-                image={incident.media.image_url}
+                image={incident.large_img}
                 title={incident.title}
                 text={incident.description}
-                details={incident.details}
-                time={`${date.getDate()}.${date.getMonth() +
-                  1}.${date.getFullYear()}`}
-                location={incident.address}
-                source={incident.source.html_url}
+                details={incident.frame_colors}
+                time={`${date.getDate()}.${
+                  date.getMonth() + 1
+                }.${date.getFullYear()}`}
+                location={incident.stolen_location}
+                source={incident.url}
                 sideFilterVisibility={sideFilterVisibility}
               ></Card>
             );
           })}
-        {!loading && !failed && !data.incidents.length && (
+        {!loading && !error && !filteredCases.length && (
           <FeedbackMessage>No results found.</FeedbackMessage>
         )}
-        {!loading && !data && failed && (
+        {!loading && !bikes && error && (
           <FeedbackMessage>Error, try again later.</FeedbackMessage>
         )}
       </CardsWrapper>
       <Pagination
-        casesPerPage={casesPerPage}
-        totalCases={!loading && filteredCases.length}
-        paginate={setCurrentPage}
+        previous={queryOptions.page > 1}
+        next={bikes.length === casesPerPage}
+        page={queryOptions.page}
+        setPage={setPage}
       ></Pagination>
     </>
   );
@@ -85,7 +94,7 @@ const CardsWrapper = styled.section`
   flex-wrap: wrap;
   justify-content: center;
 
-  ${props =>
+  ${(props) =>
     props.filtersFixed &&
     css`
       padding-top: 7rem;
@@ -94,7 +103,7 @@ const CardsWrapper = styled.section`
   ${media.sizeII`
     flex-direction: row;
 
-    ${props =>
+    ${(props) =>
       props.sideFilterVisibility &&
       css`
         width: 65%;
@@ -106,7 +115,7 @@ const CardsWrapper = styled.section`
     flex-direction: row;
     transition: width 0.3s;
 
-    ${props =>
+    ${(props) =>
       props.sideFilterVisibility &&
       css`
         width: 75%;

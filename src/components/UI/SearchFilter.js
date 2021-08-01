@@ -4,42 +4,31 @@ import styled, { css } from "styled-components";
 import {
   color_grey_light,
   color_secondary,
-  font_primary
+  font_primary,
 } from "../../atoms/Variables";
 
 import FilterContext from "../../context/FilterContext";
 
-const SearchFilter = ({visible}) => {
+const SearchFilter = ({ visible }) => {
   const { changeSelectedFilterOptions } = useContext(FilterContext);
-  const [placeholderValue, setPlaceholderValue] = useState("Search..");
   const [inputValue, setInputValue] = useState("");
 
-  const onChangeHandler = e => {
+  const onChangeHandler = (e) => {
     setInputValue(e.target.value);
-  };
-
-  const onSubmitHandler = e => {
-    e.preventDefault();
     changeSelectedFilterOptions({
       filterPart: "searchFilter",
-      value: inputValue
+      value: inputValue,
     });
-    inputValue !== ""
-      ? setPlaceholderValue(inputValue)
-      : setPlaceholderValue("Search..");
-    setInputValue("");
   };
 
   return (
     <SearchFilterWrapper filterHidden={!visible}>
-      <form onSubmit={onSubmitHandler}>
-        <input
-          type="search"
-          placeholder={placeholderValue}
-          onChange={onChangeHandler}
-          value={inputValue}
-        ></input>
-      </form>
+      <input
+        type="search"
+        placeholder="Search.."
+        onChange={onChangeHandler}
+        value={inputValue}
+      ></input>
     </SearchFilterWrapper>
   );
 };
@@ -68,7 +57,7 @@ const SearchFilterWrapper = styled.div`
     }
   }
 
-  ${props =>
+  ${(props) =>
     props.filterHidden &&
     css`
       display: none;

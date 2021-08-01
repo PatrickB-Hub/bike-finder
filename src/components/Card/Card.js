@@ -5,19 +5,17 @@ import { color_secondary, color_grey_dark } from "../../atoms/Variables";
 
 import { media } from "../../utilities/MediaQueriesBuilder";
 
-const Card = props => {
-
+const Card = (props) => {
   return (
     <CardWrapper
       sideFilterVisibility={props.sideFilterVisibility}
       className="card"
     >
-      {props.image
-        ? <Image src={props.image}></Image>
-        : <ImagePlaceholder alt="Bike Image">
-          No Image
-          </ImagePlaceholder>
-      }
+      {props.image ? (
+        <Image src={props.image}></Image>
+      ) : (
+        <ImagePlaceholder alt="Bike Image">No Image</ImagePlaceholder>
+      )}
       <div className="card_container">
         <h2 className="card_container-heading">{props.title}</h2>
         <p className="card_container-description">
@@ -48,7 +46,7 @@ const Card = props => {
           </a>
         </div>
       </div>
-    </CardWrapper >
+    </CardWrapper>
   );
 };
 
@@ -89,7 +87,7 @@ const CardWrapper = styled.div`
     width: 40%;
     margin: 2rem;
 
-    ${props =>
+    ${(props) =>
       props.sideFilterVisibility &&
       css`
         width: 65%;
@@ -100,7 +98,7 @@ const CardWrapper = styled.div`
     width: 30%;
     margin: 2.5rem auto;
 
-    ${props =>
+    ${(props) =>
       props.sideFilterVisibility &&
       css`
         width: min(400px, 45%);
