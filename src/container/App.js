@@ -10,29 +10,21 @@ import SideFilter from "../components/Layout/SideFilter";
 
 import FilterContext from "../context/FilterContext";
 
-import { useFetch } from "../utilities/useFetch";
-
 const App = () => {
+  const [bikes, setBikes] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
   const [queryOptions, setQueryOptions] = useState({
     searchBar: "",
     dropdownFilter: "New York",
     page: 1,
-    perPage: 12
+    perPage: 25,
   });
-
-  const { data, loading, failed } = useFetch(
-    `https://bikewise.org:443/api/v2/incidents?page=${
-      queryOptions.page
-    }&per_page=200&incident_type=theft&proximity=${encodeURI(
-      queryOptions.dropdownFilter
-    )}&proximity_square=100&query=${encodeURI(queryOptions.searchBar)}`
-  );
-
   const [sideFilterOptions, setSideFilterOptions] = useState({
     dateRangeFilter: { startDate: null, endDate: null },
     searchFilter: "",
     radioFilter: "Image",
-    checkboxFilter: []
+    checkboxFilter: [],
   });
 
   const [sideFilterVisibility, setSideFilterVisibility] = useState(false);
@@ -40,6 +32,45 @@ const App = () => {
   const [filtersFixed, setFiltersFixed] = useState(false);
 
   const [datePickerExpanded, setDatePickerExpanded] = useState(false);
+
+  useEffect(() => {
+    console.log("IN USEEFFECT");
+    setLoading(true);
+    fetch(
+      `https://bikeindex.org/api/v3/search?page=${queryOptions.page}&per_page=${
+        queryOptions.perPage
+      }&query=${encodeURI(queryOptions.searchBar)}&location=${encodeURI(
+        queryOptions.dropdownFilter
+      )}&distance=100&colors=${sideFilterOptions.checkboxFilter.join(
+        ","
+      )}&stolenness=proximity`
+    )
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        setLoading(false);
+        setBikes(data.bikes);
+      })
+      .catch((err) => {
+        setLoading(false);
+        setError(err.message);
+      });
+  }, [
+    queryOptions.page,
+    queryOptions.dropdownFilter,
+    queryOptions.searchBar,
+    queryOptions.perPage,
+    sideFilterOptions.checkboxFilter,
+  ]);
+
+  // const { data, loading, failed } = useFetch(
+  //   `https://bikewise.org:443/api/v2/incidents?page=${
+  //     queryOptions.page
+  //   }&per_page=200&incident_type=theft&proximity=${encodeURI(
+  //     queryOptions.dropdownFilter
+  //   )}&proximity_square=100&query=${encodeURI(queryOptions.searchBar)}`
+  // );
 
   const fixFilterElements = () => {
     const offsetTop = 150;
@@ -60,13 +91,16 @@ const App = () => {
     setSideFilterVisibility(!sideFilterVisibility);
   };
 
-  const changeSelectedFilter = option => {
+  const changeSelectedFilter = (option) => {
     const newQueryOptions = { ...queryOptions };
+    if (option.filterPart !== "page") {
+      newQueryOptions.page = 1;
+    }
     newQueryOptions[option.filterPart] = option.value;
     setQueryOptions(newQueryOptions);
   };
 
-  const changeSelectedFilterOptions = option => {
+  const changeSelectedFilterOptions = (option) => {
     const newSideFilterOptions = { ...sideFilterOptions };
     newSideFilterOptions[option.filterPart] = option.value;
     setSideFilterOptions(newSideFilterOptions);
@@ -80,9 +114,10 @@ const App = () => {
     action && action === "push"
       ? selectedCheckboxFilter.push(option)
       : (selectedCheckboxFilter = selectedCheckboxFilter.filter(
-          elem => elem !== option
+          (elem) => elem !== option
         ));
     newSideFilterOptions.checkboxFilter = selectedCheckboxFilter;
+    setQueryOptions({ ...queryOptions, page: 1 });
     setSideFilterOptions(newSideFilterOptions);
   };
 
@@ -101,15 +136,15 @@ const App = () => {
             changeSelectedFilterOptions,
             changeCheckboxFilterOptions,
             datePickerExpanded,
-            setDatePickerExpanded
+            setDatePickerExpanded,
           }}
         >
           <Header></Header>
           <TopBar></TopBar>
           <Gallery
-            data={data}
+            bikes={bikes}
             loading={loading}
-            failed={failed}
+            error={error}
             casesPerPage={queryOptions.perPage}
             filter={sideFilterOptions}
           ></Gallery>
