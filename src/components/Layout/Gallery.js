@@ -31,7 +31,6 @@ const Gallery = ({ loading, bikes, error, casesPerPage }) => {
   // Get current cases
   let filteredCases = [];
   if (!loading) filteredCases = filterApplier(sideFilterOptions, bikes);
-  console.log("FILTERED CASES: ", filteredCases);
 
   return (
     <>

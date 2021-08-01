@@ -34,7 +34,6 @@ const App = () => {
   const [datePickerExpanded, setDatePickerExpanded] = useState(false);
 
   useEffect(() => {
-    console.log("IN USEEFFECT");
     setLoading(true);
     fetch(
       `https://bikeindex.org/api/v3/search?page=${queryOptions.page}&per_page=${
@@ -104,7 +103,6 @@ const App = () => {
     const newSideFilterOptions = { ...sideFilterOptions };
     newSideFilterOptions[option.filterPart] = option.value;
     setSideFilterOptions(newSideFilterOptions);
-    console.log(sideFilterOptions);
   };
 
   const changeCheckboxFilterOptions = (option, action) => {
