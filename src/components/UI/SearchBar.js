@@ -4,7 +4,7 @@ import styled from "styled-components";
 import {
   color_secondary,
   color_grey_dark,
-  tab_filter_height
+  tab_filter_height,
 } from "../../atoms/Variables";
 
 import FilterContext from "../../context/FilterContext";
@@ -15,13 +15,14 @@ const SearchBar = () => {
   const { changeSelectedFilter } = useContext(FilterContext);
   const [inputValue, setInputValue] = useState("");
 
-  const onChangeHandler = e => {
+  const onChangeHandler = (e) => {
     setInputValue(e.target.value);
   };
 
-  const onSubmitHandler = e => {
+  const onSubmitHandler = (e) => {
     e.preventDefault();
     changeSelectedFilter({ filterPart: "searchBar", value: inputValue });
+    setInputValue("");
   };
 
   return (
