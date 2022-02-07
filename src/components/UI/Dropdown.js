@@ -108,7 +108,7 @@ const Filter = styled.div`
       font-weight: 500;
       text-align: start;
       color: ${color_grey_dark};
-      background: #fff;
+      background: transparent;
 
       border: none;
       outline: none;
